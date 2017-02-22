@@ -81,7 +81,15 @@ if ($ARGV[0] and $ARGV[0] eq 'config') {
     print "max_file_descriptors.label max open files\n";
     print "max_file_descriptors.type GAUGE\n";
 }
-elsif (!$ARGV[0] || $ARGV[0] eq 'autoconf') {
+elsif ($ARGV[0] and $ARGV[0] eq 'autoconf') {
+    if (eval "require LWP::UserAgent;") {
+        print "yes\n";
+    }
+    else {
+        print "no (LWP::UserAgent not found)\n";
+    }
+}
+else {
     print "max_file_descriptors.value $out{max_file_descriptors}\n";
     print "open_file_descriptors.value $out{open_file_descriptors}\n";
 }

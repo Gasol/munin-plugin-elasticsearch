@@ -80,7 +80,15 @@ if ($ARGV[0] and $ARGV[0] eq 'config') {
         print "$name.label $name\n"."$name.type GAUGE\n";
     }
 }
-elsif (!$ARGV[0] || $ARGV[0] eq 'autoconf') {
+elsif ($ARGV[0] and $ARGV[0] eq 'autoconf') {
+    if (eval "require LWP::UserAgent;") {
+        print "yes\n";
+    }
+    else {
+        print "no (LWP::UserAgent not found)\n";
+    }
+}
+else {
     foreach my $name (keys %out) {
         print "$name.value " . $out{$name} . "\n";
     }
